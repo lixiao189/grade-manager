@@ -11,12 +11,17 @@ find_package(Qt6 COMPONENTS
         Core
         Gui
         Widgets
-        REQUIRED)
+        REQUIRED
+        Sql)
 
-add_executable(grade_manager main.cpp)
+add_executable(grade_manager
+        src/main.cpp
+        src/GradeManager.cpp src/GradeManager.h
+        src/ui/Login.cpp src/ui/Login.h src/ui/Login.ui)
 target_link_libraries(grade_manager
         Qt::Core
         Qt::Gui
         Qt::Widgets
+        Qt::Sql
         )
 
