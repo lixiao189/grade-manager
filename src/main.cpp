@@ -1,12 +1,11 @@
 #include <QApplication>
-#include "GradeManager.h"
-#include "Login.h"
+#include "WindowsManager.h"
 
 
 int main(int argc, char *argv[]) {
   QApplication app(argc, argv);
 
-  grademanager::GradeManager gradeManager;
+  grademanager::WindowsManager window_manager;
 
   return QApplication::exec();
 }

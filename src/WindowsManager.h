@@ -2,8 +2,8 @@
 // Created by Node Sans on 2022/6/28.
 //
 
-#ifndef GRADE_MANAGER_SRC_GRADEMANAGER_H
-#define GRADE_MANAGER_SRC_GRADEMANAGER_H
+#ifndef GRADE_MANAGER_SRC_WINDOWSMANAGER_H
+#define GRADE_MANAGER_SRC_WINDOWSMANAGER_H
 
 #include <QtCore>
 #include <QWidget>
@@ -13,21 +13,19 @@
 
 namespace grademanager {
 
-class GradeManager {
+class WindowsManager {
 private:
   std::map<QString, QWidget *> router;
   QString currentRoute;
-  QSqlDatabase db;
 
 public slots:
   void LeaveToWindow(const QString &route);
 
 public:
-  explicit GradeManager();
-  virtual ~GradeManager();
-  void initDB(const QString &user, const QString &pass, const QString &host, const QString &port);
+  explicit WindowsManager();
+  virtual ~WindowsManager();
 };
 
 } // grademanager
 
-#endif //GRADE_MANAGER_SRC_GRADEMANAGER_H
+#endif //GRADE_MANAGER_SRC_WINDOWSMANAGER_H
