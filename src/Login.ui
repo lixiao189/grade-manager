@@ -57,7 +57,11 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="user_input"/>
+      <widget class="QLineEdit" name="user_input">
+       <property name="placeholderText">
+        <string>root</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -97,7 +101,10 @@
      <item>
       <widget class="QLineEdit" name="host_input">
        <property name="echoMode">
-        <enum>QLineEdit::Password</enum>
+        <enum>QLineEdit::Normal</enum>
+       </property>
+       <property name="placeholderText">
+        <string>127.0.0.1</string>
        </property>
       </widget>
      </item>
@@ -118,7 +125,10 @@
      <item>
       <widget class="QLineEdit" name="port_input">
        <property name="echoMode">
-        <enum>QLineEdit::Password</enum>
+        <enum>QLineEdit::Normal</enum>
+       </property>
+       <property name="placeholderText">
+        <string>3306</string>
        </property>
       </widget>
      </item>

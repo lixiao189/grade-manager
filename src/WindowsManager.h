@@ -10,6 +10,7 @@
 #include <map>
 #include <QSqlDatabase>
 #include "Login.h"
+#include "Global.h"
 
 namespace grademanager {
 

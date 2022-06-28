@@ -6,6 +6,9 @@
 #define GRADE_MANAGER_SRC_UI_LOGIN_H
 
 #include <QWidget>
+#include <QSqlError>
+#include "Util.h"
+#include "Global.h"
 #include "WindowsManager.h"
 
 namespace grade_manager::ui {

@@ -6,6 +6,7 @@
 
 #include "Login.h"
 #include "ui_Login.h"
+#include "global.h"
 
 namespace grade_manager::ui {
 Login::Login(QWidget *parent) :
@@ -25,7 +26,19 @@ void Login::LoginHandler() {
   const auto host_input = ui->host_input->text();
   const auto port_input = ui->port_input->text();
 
-  qDebug() << user_input << " " << pass_input << " " << host_input << " " << port_input;
+  // Add database into qt framework
+  auto mis_db = QSqlDatabase::addDatabase("QMYSQL", grade_manager::Global::MisDBName());
+  mis_db.setUserName(user_input);
+  mis_db.setPassword(pass_input);
+  mis_db.setHostName(host_input);
+  mis_db.setDatabaseName(grade_manager::Global::DBName());
+  mis_db.setPort(port_input.toInt());
+
+  auto ok = mis_db.open();
+  if (!ok) {
+    const QString &err_text = mis_db.lastError().text();
+    Util::ErrorMessageBox(err_text);
+  }
 }
 
 } // grade_manager::ui
