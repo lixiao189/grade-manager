@@ -17,7 +17,7 @@ find_package(Qt6 COMPONENTS
 add_executable(grade_manager
         src/main.cpp
         src/GradeManager.cpp src/GradeManager.h
-        src/ui/Login.cpp src/ui/Login.h src/ui/Login.ui)
+        src/Login.cpp src/Login.h src/Login.ui)
 target_link_libraries(grade_manager
         Qt::Core
         Qt::Gui

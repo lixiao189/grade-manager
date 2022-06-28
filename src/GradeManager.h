@@ -9,7 +9,7 @@
 #include <QWidget>
 #include <map>
 #include <QSqlDatabase>
-#include "ui/Login.h"
+#include "Login.h"
 
 namespace grademanager {
 

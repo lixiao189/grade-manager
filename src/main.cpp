@@ -1,6 +1,6 @@
 #include <QApplication>
 #include "GradeManager.h"
-#include "ui/Login.h"
+#include "Login.h"
 
 
 int main(int argc, char *argv[]) {
