@@ -21,4 +21,18 @@ void GradeManager::LeaveToWindow(const QString &route) {
   currentRoute = route;
 }
 
+void GradeManager::initDB(const QString &user, const QString &pass, const QString &host, const QString &port) {
+  db.setUserName(user);
+  db.setPassword(pass);
+  db.setHostName(host);
+  db.setPort(port.toInt());
+  db.open();
+}
+
+GradeManager::~GradeManager() {
+  if (db.isOpen()) {
+    db.close();
+  }
+}
+
 } // grademanager

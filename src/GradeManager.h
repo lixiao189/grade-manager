@@ -8,6 +8,7 @@
 #include <QtCore>
 #include <QWidget>
 #include <map>
+#include <QSqlDatabase>
 #include "ui/Login.h"
 
 namespace grademanager {
@@ -16,12 +17,15 @@ class GradeManager {
 private:
   std::map<QString, QWidget *> router;
   QString currentRoute;
+  QSqlDatabase db;
 
 public slots:
   void LeaveToWindow(const QString &route);
 
 public:
   explicit GradeManager();
+  virtual ~GradeManager();
+  void initDB(const QString &user, const QString &pass, const QString &host, const QString &port);
 };
 
 } // grademanager

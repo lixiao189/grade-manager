@@ -1,6 +1,6 @@
 #include <QApplication>
-#include <QPushButton>
 #include "GradeManager.h"
+#include "ui/Login.h"
 
 
 int main(int argc, char *argv[]) {

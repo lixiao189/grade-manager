@@ -6,6 +6,7 @@
 #define GRADE_MANAGER_SRC_UI_LOGIN_H
 
 #include <QWidget>
+#include "../GradeManager.h"
 
 namespace grade_manager::ui {
 QT_BEGIN_NAMESPACE
@@ -18,6 +19,7 @@ Q_OBJECT
 public:
   explicit Login(QWidget *parent = nullptr);
   ~Login() override;
+  void LoginHandler();
 
 private:
   Ui::Login *ui;
