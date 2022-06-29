@@ -6,17 +6,18 @@
 #define GRADE_MANAGER_SRC_UI_LOGIN_H
 
 #include <QWidget>
+#include <QDialog>
 #include <QSqlError>
 #include "Util.h"
 #include "Global.h"
-#include "WindowsManager.h"
+#include <qsqldatabase>
 
 namespace grade_manager::ui {
 QT_BEGIN_NAMESPACE
 namespace Ui { class Login; }
 QT_END_NAMESPACE
 
-class Login : public QWidget {
+class Login : public QDialog {
 Q_OBJECT
 
 public:

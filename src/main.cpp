@@ -5,7 +5,7 @@
 int main(int argc, char *argv[]) {
   QApplication app(argc, argv);
 
-  grademanager::WindowsManager window_manager;
+  grade_manager::WindowsManager window_manager;
 
   return QApplication::exec();
 }

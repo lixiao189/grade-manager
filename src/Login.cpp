@@ -6,14 +6,15 @@
 
 #include "Login.h"
 #include "ui_Login.h"
-#include "global.h"
+#include "Global.h"
 
 namespace grade_manager::ui {
 Login::Login(QWidget *parent) :
-    QWidget(parent), ui(new Ui::Login) {
+    QDialog(parent), ui(new Ui::Login) {
   ui->setupUi(this);
 
   QObject::connect(ui->login_button, &QPushButton::clicked, this, &Login::LoginHandler);
+  QObject::connect(ui->exit_button, &QPushButton::clicked, this, &Login::reject);
 }
 
 Login::~Login() {
@@ -38,6 +39,9 @@ void Login::LoginHandler() {
   if (!ok) {
     const QString &err_text = mis_db.lastError().text();
     Util::ErrorMessageBox(err_text);
+  } else {
+    this->close();
+    emit accepted();
   }
 }
 

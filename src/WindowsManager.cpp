@@ -4,21 +4,14 @@
 
 #include "WindowsManager.h"
 
-namespace grademanager {
+namespace grade_manager {
 
 WindowsManager::WindowsManager() {
-  // 添加窗口
-  router["/login"] = new grade_manager::ui::Login;
+  // show login window by default
+  login_window->show();
 
-  // 默认启动登录窗口
-  currentRoute = "/login";
-  router["/login"]->show();
-}
-
-void WindowsManager::LeaveToWindow(const QString &route) {
-  router[currentRoute]->close();
-  router[route]->show();
-  currentRoute = route;
+  // Bind signals and slots
+  QObject::connect(login_window, &Login::accepted, main_window, &MainWindow::show);
 }
 
 WindowsManager::~WindowsManager() {

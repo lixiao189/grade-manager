@@ -9,22 +9,25 @@
 #include <QWidget>
 #include <map>
 #include <QSqlDatabase>
+#include <QObject>
 #include "Login.h"
+#include "MainWindow.h"
 #include "Global.h"
 
-namespace grademanager {
+using namespace grade_manager::ui;
 
-class WindowsManager {
+namespace grade_manager {
+
+class WindowsManager : public QObject {
 private:
-  std::map<QString, QWidget *> router;
-  QString currentRoute;
+  Login *login_window = new Login;
+  MainWindow *main_window = new MainWindow;
 
 public slots:
-  void LeaveToWindow(const QString &route);
 
 public:
   explicit WindowsManager();
-  virtual ~WindowsManager();
+  ~WindowsManager() override;
 };
 
 } // grademanager
