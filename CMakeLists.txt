@@ -20,7 +20,7 @@ add_executable(grade_manager
         src/Login.cpp src/Login.h src/Login.ui
         src/Util.cpp src/Util.h
         src/Global.cpp src/Global.h
-        src/MainWindow.cpp src/MainWindow.h src/MainWindow.ui)
+        src/MainWindow.cpp src/MainWindow.h src/MainWindow.ui src/MainWindow.cpp src/MainWindow.h src/MainWindow.ui src/MainWindow.cpp src/MainWindow.h src/MainWindow.ui)
 
 target_link_libraries(grade_manager
         Qt::Core

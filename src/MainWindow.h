@@ -1,19 +1,18 @@
 //
-// Created by Node Sans on 2022/6/28.
+// Created by Node Sans on 2022/6/29.
 //
 
 #ifndef GRADE_MANAGER_SRC_MAINWINDOW_H
 #define GRADE_MANAGER_SRC_MAINWINDOW_H
 
 #include <QWidget>
-#include <QMainWindow>
 
 namespace grade_manager::ui {
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
-class MainWindow : public QMainWindow {
+class MainWindow : public QWidget {
 Q_OBJECT
 
 public:
