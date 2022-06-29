@@ -11,6 +11,10 @@ class Global {
 public:
   static QString MisDBName();
   static QString DBName();
+
+  // SQL statement
+  static QString QueryAllGradeStmt();
+  static QString QueryRankStmt();
 };
 }
 

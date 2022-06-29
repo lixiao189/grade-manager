@@ -142,7 +142,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_4">
+        <widget class="QPushButton" name="grade_rand_button">
          <property name="text">
           <string>名次排定</string>
          </property>

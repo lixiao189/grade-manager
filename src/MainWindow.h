@@ -24,10 +24,11 @@ Q_OBJECT
 public:
   explicit MainWindow(QWidget *parent = nullptr);
   ~MainWindow() override;
-  QString currentQueryStmt;
+  QString currentQueryStmt = "";
 
 public slots:
   void ShowAllGrade();
+  void ShowRank();
 
 private:
   Ui::MainWindow *ui;
