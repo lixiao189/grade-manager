@@ -117,7 +117,7 @@
       </sizepolicy>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -161,6 +161,42 @@
       <attribute name="title">
        <string>学生概览</string>
       </attribute>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>学年</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="student_year_input"/>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string>学号</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="student_id_input"/>
+       </item>
+       <item>
+        <widget class="QPushButton" name="student_credit_button">
+         <property name="text">
+          <string>学分统计</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="student_grade_button">
+         <property name="text">
+          <string>成绩查询</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
      <widget class="QWidget" name="tab_3">
       <attribute name="title">
@@ -169,7 +205,7 @@
      </widget>
      <widget class="QWidget" name="tab_4">
       <attribute name="title">
-       <string>教室任课安排</string>
+       <string>教师任课安排</string>
       </attribute>
      </widget>
      <widget class="QWidget" name="tab_5">

@@ -13,9 +13,13 @@ public:
   static QString DBName();
 
   // SQL statement
+  // Grade query statement
   static QString QueryAllGradeStmt();
   static QString QueryRankStmt();
   static QString QueryAvgStmt();
+
+  // Student query statement
+  static QString QueryStudentCreditStmt();
 };
 }
 

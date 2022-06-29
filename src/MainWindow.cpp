@@ -13,9 +13,13 @@ MainWindow::MainWindow(QWidget *parent) :
   ui->setupUi(this);
 
   // connect signals and slots
+  // Grade bindings
   QObject::connect(this->ui->grade_all_button, &QPushButton::clicked, this, &MainWindow::ShowAllGrade);
   QObject::connect(this->ui->grade_rand_button, &QPushButton::clicked, this, &MainWindow::ShowRank);
   QObject::connect(this->ui->grade_avg_button, &QPushButton::clicked, this, &MainWindow::ShowAvg);
+
+  // Student bindings
+  QObject::connect(this->ui->student_credit_button, &QPushButton::clicked, this, &MainWindow::ShowCredits);
 }
 
 MainWindow::~MainWindow() {
@@ -77,6 +81,29 @@ void MainWindow::ShowAvg() {
   QSqlQuery query(mis_db);
   query.prepare(sqlStmt);
   query.bindValue(":year", year);
+  query.bindValue(":start_pos", start_pos);
+  query.exec();
+  qDebug() << query.lastQuery() << "\n" << query.lastError().text(); // debug
+  currentQueryStmt = sqlStmt;
+  model->setQuery(std::move(query));
+  table_view->setModel(model);
+}
+
+void MainWindow::ShowCredits() {
+  const auto year = this->ui->student_year_input->text().toInt();
+  const auto id = this->ui->student_id_input->text();
+  const auto start_pos = ((this->ui->page_num_input->text().toInt()) - 1) * 10;
+
+  auto mis_db = QSqlDatabase::database(Global::MisDBName());
+  auto table_view = this->ui->result_table_view;
+  auto *model = new QSqlQueryModel;
+
+  // Prepare sql query
+  const QString &sqlStmt = Global::QueryStudentCreditStmt();
+  QSqlQuery query(mis_db);
+  query.prepare(sqlStmt);
+  query.bindValue(":year", year);
+  query.bindValue(":id", id);
   query.bindValue(":start_pos", start_pos);
   query.exec();
   qDebug() << query.lastQuery() << "\n" << query.lastError().text(); // debug

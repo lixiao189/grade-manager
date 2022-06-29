@@ -27,9 +27,13 @@ public:
   QString currentQueryStmt = "";
 
 public slots:
+  // Grade Info
   void ShowAllGrade();
   void ShowRank();
   void ShowAvg();
+
+  // Student Info
+  void ShowCredits();
 
 private:
   Ui::MainWindow *ui;

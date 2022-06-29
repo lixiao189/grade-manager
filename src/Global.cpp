@@ -48,5 +48,18 @@ QString Global::QueryAvgStmt() {
          "HAVING lx_reports.`year` = :year "
          "limit 10 offset :start_pos;";
 }
+
+QString Global::QueryStudentCreditStmt() {
+  return "SELECT student_id,"
+         "lx_students.`name`,"
+         "lx_reports.`year`,"
+         "GROUP_CONCAT(lx_courses.`name`) AS courses,"
+         "SUM(lx_courses.credit) AS sum_credit "
+         "FROM lx_reports INNER JOIN lx_courses ON lx_reports.course_id=lx_courses.id "
+         "INNER JOIN lx_students ON lx_reports.student_id=lx_students.id "
+         "GROUP BY lx_reports.student_id,lx_reports.`year` "
+         "HAVING lx_reports.`year` = :year AND lx_reports.student_id= :id "
+         "limit 10 offset :start_pos;";
+}
 }
 
