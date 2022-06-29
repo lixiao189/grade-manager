@@ -50,8 +50,10 @@ void MainWindow::ShowAllGrade() {
   query.prepare(sqlStmt);
   query.bindValue(":year", year);
   query.bindValue(":start_pos", start_pos);
-  query.exec();
-  qDebug() << query.lastQuery() << "\n" << query.lastError().text(); // debug
+  if (!query.exec()) {
+    Util::ErrorMessageBox("查询失败，请仔细检查输入数据");
+    qDebug() << query.lastQuery() << "\n" << query.lastError().text(); // debug
+  }
   currentQueryStmt = sqlStmt;
   model->setQuery(std::move(query));
   table_view->setModel(model);
@@ -71,8 +73,10 @@ void MainWindow::ShowRank() {
   query.prepare(sqlStmt);
   query.bindValue(":year", year);
   query.bindValue(":start_pos", start_pos);
-  query.exec();
-  qDebug() << query.lastQuery() << "\n" << query.lastError().text(); // debug
+  if (!query.exec()) {
+    Util::ErrorMessageBox("查询失败，请仔细检查输入数据");
+    qDebug() << query.lastQuery() << "\n" << query.lastError().text(); // debug
+  }
   currentQueryStmt = sqlStmt;
   model->setQuery(std::move(query));
   table_view->setModel(model);
@@ -92,8 +96,10 @@ void MainWindow::ShowAvg() {
   query.prepare(sqlStmt);
   query.bindValue(":year", year);
   query.bindValue(":start_pos", start_pos);
-  query.exec();
-  qDebug() << query.lastQuery() << "\n" << query.lastError().text(); // debug
+  if (!query.exec()) {
+    Util::ErrorMessageBox("查询失败，请仔细检查输入数据");
+    qDebug() << query.lastQuery() << "\n" << query.lastError().text(); // debug
+  }
   currentQueryStmt = sqlStmt;
   model->setQuery(std::move(query));
   table_view->setModel(model);
@@ -115,8 +121,10 @@ void MainWindow::ShowCredits() {
   query.bindValue(":year", year);
   query.bindValue(":id", id);
   query.bindValue(":start_pos", start_pos);
-  query.exec();
-  qDebug() << query.lastQuery() << "\n" << query.lastError().text(); // debug
+  if (!query.exec()) {
+    Util::ErrorMessageBox("查询失败，请仔细检查输入数据");
+    qDebug() << query.lastQuery() << "\n" << query.lastError().text(); // debug
+  }
   currentQueryStmt = sqlStmt;
   model->setQuery(std::move(query));
   table_view->setModel(model);
@@ -138,8 +146,10 @@ void MainWindow::ShowStudentsGrade() {
   query.bindValue(":year", year);
   query.bindValue(":id", id);
   query.bindValue(":start_pos", start_pos);
-  query.exec();
-  qDebug() << query.lastQuery() << "\n" << query.lastError().text(); // debug
+  if (!query.exec()) {
+    Util::ErrorMessageBox("查询失败，请仔细检查输入数据");
+    qDebug() << query.lastQuery() << "\n" << query.lastError().text(); // debug
+  }
   currentQueryStmt = sqlStmt;
   model->setQuery(std::move(query));
   table_view->setModel(model);
@@ -159,8 +169,10 @@ void MainWindow::ShowTeacherLessons() {
   query.prepare(sqlStmt);
   query.bindValue(":name", teacher_name);
   query.bindValue(":start_pos", start_pos);
-  query.exec();
-  qDebug() << query.lastQuery() << "\n" << query.lastError().text(); // debug
+  if (!query.exec()) {
+    Util::ErrorMessageBox("查询失败，请仔细检查输入数据");
+    qDebug() << query.lastQuery() << "\n" << query.lastError().text(); // debug
+  }
   currentQueryStmt = sqlStmt;
   model->setQuery(std::move(query));
   table_view->setModel(model);
@@ -191,8 +203,10 @@ void MainWindow::ShowClassSchedule() {
   query.bindValue(":year", year);
   query.bindValue(":term", term);
   query.bindValue(":start_pos", start_pos);
-  query.exec();
-  qDebug() << query.lastQuery() << "\n" << query.lastError().text(); // debug
+  if (!query.exec()) {
+    Util::ErrorMessageBox("查询失败，请仔细检查输入数据");
+    qDebug() << query.lastQuery() << "\n" << query.lastError().text(); // debug
+  }
   currentQueryStmt = sqlStmt;
   model->setQuery(std::move(query));
   table_view->setModel(model);
@@ -217,8 +231,8 @@ void MainWindow::InsertGrade() {
   if (query.exec()) {
     Util::SuccessMessageBox("插入成功");
   } else {
+    qDebug() << query.lastQuery() << "\n" << query.lastError().text(); // debug
     Util::ErrorMessageBox(query.lastError().text());
   }
-  qDebug() << query.lastQuery() << "\n" << query.lastError().text(); // debug
 }
 } // grade_manager::ui

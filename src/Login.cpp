@@ -38,7 +38,8 @@ void Login::LoginHandler() {
   auto ok = mis_db.open();
   if (!ok) {
     const QString &err_text = mis_db.lastError().text();
-    Util::ErrorMessageBox(err_text);
+    qDebug() << err_text;
+    Util::ErrorMessageBox("登录失败，请检查用户名和密码");
   } else {
     this->close();
     emit accepted();
