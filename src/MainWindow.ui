@@ -149,7 +149,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_5">
+        <widget class="QPushButton" name="grade_avg_button">
          <property name="text">
           <string>平均成绩</string>
          </property>

@@ -29,6 +29,7 @@ public:
 public slots:
   void ShowAllGrade();
   void ShowRank();
+  void ShowAvg();
 
 private:
   Ui::MainWindow *ui;

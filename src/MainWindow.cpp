@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
   // connect signals and slots
   QObject::connect(this->ui->grade_all_button, &QPushButton::clicked, this, &MainWindow::ShowAllGrade);
   QObject::connect(this->ui->grade_rand_button, &QPushButton::clicked, this, &MainWindow::ShowRank);
+  QObject::connect(this->ui->grade_avg_button, &QPushButton::clicked, this, &MainWindow::ShowAvg);
 }
 
 MainWindow::~MainWindow() {
@@ -52,6 +53,27 @@ void MainWindow::ShowRank() {
 
   // Prepare sql query
   const QString &sqlStmt = Global::QueryRankStmt();
+  QSqlQuery query(mis_db);
+  query.prepare(sqlStmt);
+  query.bindValue(":year", year);
+  query.bindValue(":start_pos", start_pos);
+  query.exec();
+  qDebug() << query.lastQuery() << "\n" << query.lastError().text(); // debug
+  currentQueryStmt = sqlStmt;
+  model->setQuery(std::move(query));
+  table_view->setModel(model);
+}
+
+void MainWindow::ShowAvg() {
+  const auto year = this->ui->grade_year_input->text().toInt();
+  const auto start_pos = ((this->ui->page_num_input->text().toInt()) - 1) * 10;
+
+  auto mis_db = QSqlDatabase::database(Global::MisDBName());
+  auto table_view = this->ui->result_table_view;
+  auto *model = new QSqlQueryModel;
+
+  // Prepare sql query
+  const QString &sqlStmt = Global::QueryAvgStmt();
   QSqlQuery query(mis_db);
   query.prepare(sqlStmt);
   query.bindValue(":year", year);

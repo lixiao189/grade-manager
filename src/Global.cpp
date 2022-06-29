@@ -36,5 +36,17 @@ QString Global::QueryRankStmt() {
          "AND lx_students.id=lx_sum_grade.student_id ORDER BY grade_sum DESC "
          "limit 10 offset :start_pos;";
 }
+
+QString Global::QueryAvgStmt() {
+  return "SELECT lx_reports.course_id,"
+         "lx_courses.`name`,"
+         "lx_reports.`year`,"
+         "AVG(lx_reports.grade) AS average_grade "
+         "FROM lx_reports "
+         "INNER JOIN lx_courses ON lx_reports.course_id=lx_courses.id "
+         "GROUP BY lx_reports.course_id,lx_reports.`year` "
+         "HAVING lx_reports.`year` = :year "
+         "limit 10 offset :start_pos;";
+}
 }
 

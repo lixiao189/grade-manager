@@ -15,6 +15,7 @@ public:
   // SQL statement
   static QString QueryAllGradeStmt();
   static QString QueryRankStmt();
+  static QString QueryAvgStmt();
 };
 }
 
