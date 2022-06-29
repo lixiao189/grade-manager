@@ -20,6 +20,7 @@ public:
 
   // Student query statement
   static QString QueryStudentCreditStmt();
+  static QString QueryStudentGradeStmt();
 };
 }
 

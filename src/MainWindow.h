@@ -34,6 +34,7 @@ public slots:
 
   // Student Info
   void ShowCredits();
+  void ShowStudentsGrade();
 
 private:
   Ui::MainWindow *ui;
