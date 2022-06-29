@@ -6,6 +6,12 @@
 #define GRADE_MANAGER_SRC_MAINWINDOW_H
 
 #include <QWidget>
+#include <QSqlQueryModel>
+#include <QSqlQuery>
+#include <QSqlDatabase>
+#include <QSqlRecord>
+#include <QSqlError>
+#include "Global.h"
 
 namespace grade_manager::ui {
 QT_BEGIN_NAMESPACE
@@ -18,6 +24,10 @@ Q_OBJECT
 public:
   explicit MainWindow(QWidget *parent = nullptr);
   ~MainWindow() override;
+  QString currentQueryStmt;
+
+public slots:
+  void ShowAllGrade();
 
 private:
   Ui::MainWindow *ui;
