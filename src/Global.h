@@ -6,6 +6,7 @@
 #define GRADE_MANAGER_SRC_GLOBAL_H
 
 #include <QString>
+
 namespace grade_manager {
 class Global {
 public:
@@ -24,6 +25,9 @@ public:
 
   // Teacher query statement
   static QString QueryTeacherLessonStmt();
+
+  // Class's lesson schedule query statement
+  static QString QueryScheduleStmt();
 };
 }
 

@@ -24,6 +24,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
   // Teacher binding
   QObject::connect(this->ui->teacher_info_button, &QPushButton::clicked, this, &MainWindow::ShowTeacherLessons);
+
+  // Schedule binding
+  QObject::connect(this->ui->schedule_lesson_button, &QPushButton::clicked, this, &MainWindow::ShowClassSchedule);
 }
 
 MainWindow::~MainWindow() {
@@ -152,6 +155,38 @@ void MainWindow::ShowTeacherLessons() {
   QSqlQuery query(mis_db);
   query.prepare(sqlStmt);
   query.bindValue(":name", teacher_name);
+  query.bindValue(":start_pos", start_pos);
+  query.exec();
+  qDebug() << query.lastQuery() << "\n" << query.lastError().text(); // debug
+  currentQueryStmt = sqlStmt;
+  model->setQuery(std::move(query));
+  table_view->setModel(model);
+}
+
+void MainWindow::ShowClassSchedule() {
+  QMap<QString, int> TermNumber;
+  TermNumber["上学期"] = 1;
+  TermNumber["下学期"] = 2;
+  TermNumber["短学期"] = 3;
+
+  const auto major_id = this->ui->schedule_majorid_input->text();
+  const auto class_id = this->ui->schedule_classid_input->text();
+  const auto year = this->ui->schedule_year_input->text();
+  const auto term = TermNumber[this->ui->schedule_term_input->currentText()];
+  const auto start_pos = ((this->ui->page_num_input->text().toInt()) - 1) * 10;
+
+  auto mis_db = QSqlDatabase::database(Global::MisDBName());
+  auto table_view = this->ui->result_table_view;
+  auto *model = new QSqlQueryModel;
+
+  // Prepare sql query
+  const QString &sqlStmt = Global::QueryScheduleStmt();
+  QSqlQuery query(mis_db);
+  query.prepare(sqlStmt);
+  query.bindValue(":major_id", major_id);
+  query.bindValue(":class_id", class_id);
+  query.bindValue(":year", year);
+  query.bindValue(":term", term);
   query.bindValue(":start_pos", start_pos);
   query.exec();
   qDebug() << query.lastQuery() << "\n" << query.lastError().text(); // debug

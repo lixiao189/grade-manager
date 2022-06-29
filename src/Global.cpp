@@ -5,6 +5,7 @@
 #include "Global.h"
 
 namespace grade_manager {
+
 QString Global::MisDBName() {
   return "mis";
 }
@@ -70,6 +71,7 @@ QString Global::QueryStudentGradeStmt() {
          "WHERE student_id = :id AND `year` = :year "
          "limit 10 offset :start_pos;";
 }
+
 QString Global::QueryTeacherLessonStmt() {
   return "SELECT lx_courses.*"
          "FROM lx_teach "
@@ -78,5 +80,20 @@ QString Global::QueryTeacherLessonStmt() {
          "WHERE lx_teachers.`name` = :name "
          "limit 10 offset :start_pos;";
 }
+
+QString Global::QueryScheduleStmt() {
+  return "SELECT lx_majors.`name`,"
+         "lx_classes.`name`,"
+         "lx_courses.`name` "
+         "FROM lx_schedule INNER JOIN lx_majors ON major_id=lx_majors.id "
+         "INNER JOIN lx_classes ON class_id=lx_classes.id "
+         "INNER JOIN lx_courses ON course_id=lx_courses.id "
+         "WHERE major_id = :major_id "
+         "AND class_id = :class_id "
+         "AND `year` = :year "
+         "AND term = :term "
+         "limit 10 offset :start_pos;";
+}
+
 }
 

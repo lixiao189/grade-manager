@@ -11,6 +11,7 @@
 #include <QSqlDatabase>
 #include <QSqlRecord>
 #include <QSqlError>
+#include <QMap>
 #include "Global.h"
 
 namespace grade_manager::ui {
@@ -38,6 +39,9 @@ public slots:
 
   // Teacher info
   void ShowTeacherLessons();
+
+  // Schedule info
+  void ShowClassSchedule();
 
 private:
   Ui::MainWindow *ui;
