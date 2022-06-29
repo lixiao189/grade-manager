@@ -12,4 +12,12 @@ void Util::ErrorMessageBox(const QString &msg) {
   msg_box.setInformativeText(msg);
   msg_box.exec();
 }
+
+void Util::SuccessMessageBox(const QString &msg) {
+  QMessageBox msg_box;
+  msg_box.setText("Success.");
+  msg_box.setIcon(QMessageBox::Information);
+  msg_box.setInformativeText(msg);
+  msg_box.exec();
+}
 } // grade_manager

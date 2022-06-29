@@ -13,6 +13,7 @@
 #include <QSqlError>
 #include <QMap>
 #include "Global.h"
+#include "Util.h"
 
 namespace grade_manager::ui {
 QT_BEGIN_NAMESPACE
@@ -42,6 +43,9 @@ public slots:
 
   // Schedule info
   void ShowClassSchedule();
+
+  // Insert grade info
+  void InsertGrade();
 
 private:
   Ui::MainWindow *ui;

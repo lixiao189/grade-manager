@@ -28,6 +28,9 @@ public:
 
   // Class's lesson schedule query statement
   static QString QueryScheduleStmt();
+
+  // Insert grade statement
+  static QString InsertGradeStmt();
 };
 }
 

@@ -94,6 +94,14 @@ QString Global::QueryScheduleStmt() {
          "AND term = :term "
          "limit 10 offset :start_pos;";
 }
+QString Global::InsertGradeStmt() {
+  return "INSERT INTO lx_reports "
+         "(lx_reports.student_id,"
+         "lx_reports.course_id,"
+         "lx_reports.`year`,"
+         "lx_reports.grade) VALUES "
+         "(:student_id, :course_id, :year, :grade);";
+}
 
 }
 

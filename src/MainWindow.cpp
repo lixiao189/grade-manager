@@ -27,6 +27,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
   // Schedule binding
   QObject::connect(this->ui->schedule_lesson_button, &QPushButton::clicked, this, &MainWindow::ShowClassSchedule);
+
+  // Insert binding
+  QObject::connect(this->ui->insertgrade_insert_button, &QPushButton::clicked, this, &MainWindow::InsertGrade);
 }
 
 MainWindow::~MainWindow() {
@@ -193,5 +196,29 @@ void MainWindow::ShowClassSchedule() {
   currentQueryStmt = sqlStmt;
   model->setQuery(std::move(query));
   table_view->setModel(model);
+}
+
+void MainWindow::InsertGrade() {
+  const auto student_id = this->ui->insertgrade_studentid_input->text();
+  const auto course_id = this->ui->insertgrade_courseid_input->text();
+  const auto year = this->ui->insertgrade_year_input->text();
+  const auto grade = this->ui->insertgrade_grade_input->text();
+
+  auto mis_db = QSqlDatabase::database(Global::MisDBName());
+
+  // Prepare sql query
+  const QString &sqlStmt = Global::InsertGradeStmt();
+  QSqlQuery query(mis_db);
+  query.prepare(sqlStmt);
+  query.bindValue(":student_id", student_id);
+  query.bindValue(":course_id", course_id);
+  query.bindValue(":year", year);
+  query.bindValue(":grade", grade);
+  if (query.exec()) {
+    Util::SuccessMessageBox("插入成功");
+  } else {
+    Util::ErrorMessageBox(query.lastError().text());
+  }
+  qDebug() << query.lastQuery() << "\n" << query.lastError().text(); // debug
 }
 } // grade_manager::ui

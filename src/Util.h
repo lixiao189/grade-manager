@@ -12,6 +12,7 @@ namespace grade_manager {
 
 class Util {
 public:
+  static void SuccessMessageBox(const QString &msg);
   static void ErrorMessageBox(const QString &msg);
 };
 
