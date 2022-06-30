@@ -49,6 +49,8 @@ public slots:
 
   // Page jump function
   void JumpToPage();
+  void JumpToNextPage();
+  void JumpToPrevPage();
 
 private:
   Ui::MainWindow *ui;

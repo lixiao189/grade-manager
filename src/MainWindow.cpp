@@ -33,6 +33,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
   // Page jump binding
   QObject::connect(this->ui->jump_button, &QPushButton::clicked, this, &MainWindow::JumpToPage);
+  QObject::connect(this->ui->prev_button, &QPushButton::clicked, this, &MainWindow::JumpToPrevPage);
+  QObject::connect(this->ui->next_buttoin, &QPushButton::clicked, this, &MainWindow::JumpToNextPage);
 }
 
 MainWindow::~MainWindow() {
@@ -229,13 +231,31 @@ void MainWindow::InsertGrade() {
 void MainWindow::JumpToPage() {
   const auto start_pos = ((this->ui->page_num_input->text().toInt()) - 1) * 10;
 
-  currentModel->removeRows(0, currentModel->rowCount());
   currentModel->query().bindValue(":start_pos", start_pos);
   if (currentModel->query().exec()) {
     currentModel->setQuery(currentModel->query());
   } else {
     qDebug() << currentModel->query().lastQuery() << "\n" << currentModel->query().lastError().text(); // debug
-    Util::ErrorMessageBox(currentModel->query().lastError().text());
   }
+}
+
+void MainWindow::JumpToNextPage() {
+  auto page_num = this->ui->page_num_input->text().toInt();
+  ++page_num;
+  this->ui->page_num_input->setText(QString::number(page_num));
+
+  JumpToPage();
+}
+
+void MainWindow::JumpToPrevPage() {
+  auto page_num = this->ui->page_num_input->text().toInt();
+  if (page_num == 1) {
+    return;
+  }
+
+  --page_num;
+  this->ui->page_num_input->setText(QString::number(page_num));
+
+  JumpToPage();
 }
 } // grade_manager::ui
