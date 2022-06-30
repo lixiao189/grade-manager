@@ -26,7 +26,7 @@ Q_OBJECT
 public:
   explicit MainWindow(QWidget *parent = nullptr);
   ~MainWindow() override;
-  QString currentQueryStmt = "";
+  QSqlQueryModel *currentModel = new QSqlQueryModel;
 
 public slots:
   // Grade Info
@@ -46,6 +46,9 @@ public slots:
 
   // Insert grade info
   void InsertGrade();
+
+  // Page jump function
+  void JumpToPage();
 
 private:
   Ui::MainWindow *ui;

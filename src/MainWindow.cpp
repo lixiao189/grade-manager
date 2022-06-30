@@ -30,10 +30,14 @@ MainWindow::MainWindow(QWidget *parent) :
 
   // Insert binding
   QObject::connect(this->ui->insertgrade_insert_button, &QPushButton::clicked, this, &MainWindow::InsertGrade);
+
+  // Page jump binding
+  QObject::connect(this->ui->jump_button, &QPushButton::clicked, this, &MainWindow::JumpToPage);
 }
 
 MainWindow::~MainWindow() {
   delete ui;
+  delete currentModel;
 }
 
 void MainWindow::ShowAllGrade() {
@@ -42,7 +46,6 @@ void MainWindow::ShowAllGrade() {
 
   auto mis_db = QSqlDatabase::database(Global::MisDBName());
   auto table_view = this->ui->result_table_view;
-  auto *model = new QSqlQueryModel;
 
   // Prepare sql query
   const QString &sqlStmt = Global::QueryAllGradeStmt();
@@ -54,9 +57,8 @@ void MainWindow::ShowAllGrade() {
     Util::ErrorMessageBox("查询失败，请仔细检查输入数据");
     qDebug() << query.lastQuery() << "\n" << query.lastError().text(); // debug
   }
-  currentQueryStmt = sqlStmt;
-  model->setQuery(std::move(query));
-  table_view->setModel(model);
+  currentModel->setQuery(std::move(query));
+  table_view->setModel(currentModel);
 }
 
 void MainWindow::ShowRank() {
@@ -65,7 +67,6 @@ void MainWindow::ShowRank() {
 
   auto mis_db = QSqlDatabase::database(Global::MisDBName());
   auto table_view = this->ui->result_table_view;
-  auto *model = new QSqlQueryModel;
 
   // Prepare sql query
   const QString &sqlStmt = Global::QueryRankStmt();
@@ -77,9 +78,8 @@ void MainWindow::ShowRank() {
     Util::ErrorMessageBox("查询失败，请仔细检查输入数据");
     qDebug() << query.lastQuery() << "\n" << query.lastError().text(); // debug
   }
-  currentQueryStmt = sqlStmt;
-  model->setQuery(std::move(query));
-  table_view->setModel(model);
+  currentModel->setQuery(std::move(query));
+  table_view->setModel(currentModel);
 }
 
 void MainWindow::ShowAvg() {
@@ -88,7 +88,6 @@ void MainWindow::ShowAvg() {
 
   auto mis_db = QSqlDatabase::database(Global::MisDBName());
   auto table_view = this->ui->result_table_view;
-  auto *model = new QSqlQueryModel;
 
   // Prepare sql query
   const QString &sqlStmt = Global::QueryAvgStmt();
@@ -100,9 +99,8 @@ void MainWindow::ShowAvg() {
     Util::ErrorMessageBox("查询失败，请仔细检查输入数据");
     qDebug() << query.lastQuery() << "\n" << query.lastError().text(); // debug
   }
-  currentQueryStmt = sqlStmt;
-  model->setQuery(std::move(query));
-  table_view->setModel(model);
+  currentModel->setQuery(std::move(query));
+  table_view->setModel(currentModel);
 }
 
 void MainWindow::ShowCredits() {
@@ -112,7 +110,6 @@ void MainWindow::ShowCredits() {
 
   auto mis_db = QSqlDatabase::database(Global::MisDBName());
   auto table_view = this->ui->result_table_view;
-  auto *model = new QSqlQueryModel;
 
   // Prepare sql query
   const QString &sqlStmt = Global::QueryStudentCreditStmt();
@@ -125,9 +122,8 @@ void MainWindow::ShowCredits() {
     Util::ErrorMessageBox("查询失败，请仔细检查输入数据");
     qDebug() << query.lastQuery() << "\n" << query.lastError().text(); // debug
   }
-  currentQueryStmt = sqlStmt;
-  model->setQuery(std::move(query));
-  table_view->setModel(model);
+  currentModel->setQuery(std::move(query));
+  table_view->setModel(currentModel);
 }
 
 void MainWindow::ShowStudentsGrade() {
@@ -137,7 +133,6 @@ void MainWindow::ShowStudentsGrade() {
 
   auto mis_db = QSqlDatabase::database(Global::MisDBName());
   auto table_view = this->ui->result_table_view;
-  auto *model = new QSqlQueryModel;
 
   // Prepare sql query
   const QString &sqlStmt = Global::QueryStudentGradeStmt();
@@ -150,9 +145,8 @@ void MainWindow::ShowStudentsGrade() {
     Util::ErrorMessageBox("查询失败，请仔细检查输入数据");
     qDebug() << query.lastQuery() << "\n" << query.lastError().text(); // debug
   }
-  currentQueryStmt = sqlStmt;
-  model->setQuery(std::move(query));
-  table_view->setModel(model);
+  currentModel->setQuery(std::move(query));
+  table_view->setModel(currentModel);
 }
 
 void MainWindow::ShowTeacherLessons() {
@@ -161,7 +155,6 @@ void MainWindow::ShowTeacherLessons() {
 
   auto mis_db = QSqlDatabase::database(Global::MisDBName());
   auto table_view = this->ui->result_table_view;
-  auto *model = new QSqlQueryModel;
 
   // Prepare sql query
   const QString &sqlStmt = Global::QueryTeacherLessonStmt();
@@ -173,9 +166,8 @@ void MainWindow::ShowTeacherLessons() {
     Util::ErrorMessageBox("查询失败，请仔细检查输入数据");
     qDebug() << query.lastQuery() << "\n" << query.lastError().text(); // debug
   }
-  currentQueryStmt = sqlStmt;
-  model->setQuery(std::move(query));
-  table_view->setModel(model);
+  currentModel->setQuery(std::move(query));
+  table_view->setModel(currentModel);
 }
 
 void MainWindow::ShowClassSchedule() {
@@ -192,7 +184,6 @@ void MainWindow::ShowClassSchedule() {
 
   auto mis_db = QSqlDatabase::database(Global::MisDBName());
   auto table_view = this->ui->result_table_view;
-  auto *model = new QSqlQueryModel;
 
   // Prepare sql query
   const QString &sqlStmt = Global::QueryScheduleStmt();
@@ -207,9 +198,8 @@ void MainWindow::ShowClassSchedule() {
     Util::ErrorMessageBox("查询失败，请仔细检查输入数据");
     qDebug() << query.lastQuery() << "\n" << query.lastError().text(); // debug
   }
-  currentQueryStmt = sqlStmt;
-  model->setQuery(std::move(query));
-  table_view->setModel(model);
+  currentModel->setQuery(std::move(query));
+  table_view->setModel(currentModel);
 }
 
 void MainWindow::InsertGrade() {
@@ -233,6 +223,19 @@ void MainWindow::InsertGrade() {
   } else {
     qDebug() << query.lastQuery() << "\n" << query.lastError().text(); // debug
     Util::ErrorMessageBox(query.lastError().text());
+  }
+}
+
+void MainWindow::JumpToPage() {
+  const auto start_pos = ((this->ui->page_num_input->text().toInt()) - 1) * 10;
+
+  currentModel->removeRows(0, currentModel->rowCount());
+  currentModel->query().bindValue(":start_pos", start_pos);
+  if (currentModel->query().exec()) {
+    currentModel->setQuery(currentModel->query());
+  } else {
+    qDebug() << currentModel->query().lastQuery() << "\n" << currentModel->query().lastError().text(); // debug
+    Util::ErrorMessageBox(currentModel->query().lastError().text());
   }
 }
 } // grade_manager::ui
