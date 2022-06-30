@@ -15,10 +15,11 @@ QString Global::DBName() {
 }
 
 QString Global::QueryAllGradeStmt() {
-  return "SELECT lx_students.id,"
-         "lx_students.`name` AS 'student_name',"
-         "lx_courses.`name` AS 'course_name',"
-         "lx_reports.`year`,lx_reports.grade "
+  return "SELECT lx_students.id as 学号,"
+         "lx_students.`name` AS '姓名',"
+         "lx_courses.`name` AS '课程名',"
+         "lx_reports.`year` AS '学年',"
+         "lx_reports.grade AS '总分' "
          "FROM lx_reports "
          "INNER JOIN lx_students ON lx_students.id=lx_reports.student_id "
          "INNER JOIN lx_courses ON lx_courses.id=lx_reports.course_id "
@@ -27,11 +28,11 @@ QString Global::QueryAllGradeStmt() {
 }
 
 QString Global::QueryRankStmt() {
-  return "SELECT student_id,"
-         "lx_students.`name`,"
-         "grade_sum,"
-         "`year`,"
-         "(@rowNum :=@rowNum+1) AS rowNum "
+  return "SELECT student_id as '学号',"
+         "lx_students.`name` as '姓名',"
+         "grade_sum as 总分,"
+         "`year` as 学年,"
+         "(@rowNum :=@rowNum+1) AS 排名 "
          "FROM lx_sum_grade,"
          "lx_students,(SELECT (@rowNum :=0)) b WHERE lx_sum_grade.`year` = :year "
          "AND lx_students.id=lx_sum_grade.student_id ORDER BY grade_sum DESC "
@@ -39,10 +40,10 @@ QString Global::QueryRankStmt() {
 }
 
 QString Global::QueryAvgStmt() {
-  return "SELECT lx_reports.course_id,"
-         "lx_courses.`name`,"
-         "lx_reports.`year`,"
-         "AVG(lx_reports.grade) AS average_grade "
+  return "SELECT lx_reports.course_id as 班级编号,"
+         "lx_courses.`name` as 课程名,"
+         "lx_reports.`year` as 学年,"
+         "AVG(lx_reports.grade) AS 平均分 "
          "FROM lx_reports "
          "INNER JOIN lx_courses ON lx_reports.course_id=lx_courses.id "
          "GROUP BY lx_reports.course_id,lx_reports.`year` "
@@ -51,29 +52,34 @@ QString Global::QueryAvgStmt() {
 }
 
 QString Global::QueryStudentCreditStmt() {
-  return "SELECT student_id,"
-         "lx_students.`name`,"
-         "lx_reports.`year`,"
-         "GROUP_CONCAT(lx_courses.`name`) AS courses,"
-         "SUM(lx_courses.credit) AS sum_credit "
-         "FROM lx_reports INNER JOIN lx_courses ON lx_reports.course_id=lx_courses.id "
-         "INNER JOIN lx_students ON lx_reports.student_id=lx_students.id "
-         "GROUP BY lx_reports.student_id,lx_reports.`year` "
-         "HAVING lx_reports.`year` = :year AND lx_reports.student_id= :id "
+  return "SELECT student_id as 学生编号,"
+         "lx_students.`name` as 学生姓名,"
+         "lx_report_passed.`year` as 学年,"
+         "GROUP_CONCAT(lx_courses.`name`) AS 所学课程,"
+         "SUM(lx_courses.credit) AS 总学分 "
+         "FROM lx_report_passed INNER JOIN lx_courses ON lx_report_passed.course_id=lx_courses.id "
+         "INNER JOIN lx_students ON lx_report_passed.student_id=lx_students.id "
+         "GROUP BY lx_report_passed.student_id,lx_report_passed.`year` "
+         "HAVING lx_report_passed.`year` = :year AND lx_report_passed.student_id = :id "
          "limit 10 offset :start_pos;";
 }
 
 QString Global::QueryStudentGradeStmt() {
-  return "SELECT lx_courses.`name`,"
-         "lx_reports.`year`,"
-         "lx_reports.grade FROM lx_reports "
+  return "SELECT lx_courses.`name` as 课程名,"
+         "lx_reports.`year` as 学年,"
+         "lx_reports.grade as 分数 "
+         "FROM lx_reports "
          "INNER JOIN lx_courses ON lx_reports.course_id=lx_courses.id "
          "WHERE student_id = :id AND `year` = :year "
          "limit 10 offset :start_pos;";
 }
 
 QString Global::QueryTeacherLessonStmt() {
-  return "SELECT lx_courses.*"
+  return "SELECT lx_courses.id as 课程编号,"
+         "lx_courses.name as 课程名,"
+         "period as 学时, "
+         "credit as 学分, "
+         "need_test as '是否需要考试[1为需要]' "
          "FROM lx_teach "
          "INNER JOIN lx_teachers ON lx_teach.teacher_id=lx_teachers.id "
          "INNER JOIN lx_courses ON lx_teach.course_id=lx_courses.id "
@@ -82,9 +88,9 @@ QString Global::QueryTeacherLessonStmt() {
 }
 
 QString Global::QueryScheduleStmt() {
-  return "SELECT lx_majors.`name`,"
-         "lx_classes.`name`,"
-         "lx_courses.`name` "
+  return "SELECT lx_majors.`name` as 专业名,"
+         "lx_classes.`name` as 班级名,"
+         "lx_courses.`name` as 课程名 "
          "FROM lx_schedule INNER JOIN lx_majors ON major_id=lx_majors.id "
          "INNER JOIN lx_classes ON class_id=lx_classes.id "
          "INNER JOIN lx_courses ON course_id=lx_courses.id "
